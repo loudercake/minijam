@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://eabyygrkangd"]
+
+[ext_resource type="Script" uid="uid://dm0kq3c20pvkw" path="res://scripts/germ.gd" id="1_wjhn7"]
+[ext_resource type="Texture2D" uid="uid://ugghbhdke7tk" path="res://germ.png" id="2_o2s4c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_teomh"]
+radius = 24.020824
+
+[sub_resource type="Animation" id="Animation_6bfin"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_teomh"]
+resource_name = "anim"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.03333333, 0.13333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e18l3"]
+_data = {
+&"RESET": SubResource("Animation_6bfin"),
+&"anim": SubResource("Animation_teomh")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wjhn7"]
+radius = 35.510563
+
+[node name="Germ" type="CharacterBody2D"]
+script = ExtResource("1_wjhn7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(23, 22)
+shape = SubResource("CircleShape2D_teomh")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(19.000008, 20.000008)
+scale = Vector2(1.9999998, 1.9999998)
+texture = ExtResource("2_o2s4c")
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_e18l3")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(23, 23)
+shape = SubResource("CircleShape2D_wjhn7")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

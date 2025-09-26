@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjvsq273osf1o"]
+
+[sub_resource type="Gradient" id="Gradient_wvdmf"]
+interpolation_mode = 1
+interpolation_color_space = 1
+offsets = PackedFloat32Array(0.01, 0.31)
+colors = PackedColorArray(0.35, 0, 0.28000006, 0.5803922, 0, 0, 0, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 100
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dme51"]
+noise_type = 2
+frequency = 0.0038
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_64oux"]
+width = 256
+height = 256
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_dme51")
+color_ramp = SubResource("Gradient_wvdmf")
+
+[node name="Beach" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Noise1" type="Sprite2D" parent="."]
+position = Vector2(1038, -561)
+rotation = 3.1415927
+scale = Vector2(15.372525, 11.372423)
+skew = 0.858702
+texture = SubResource("NoiseTexture2D_64oux")
